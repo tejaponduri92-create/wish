@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise 🎂</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    text-align: center;
+    color: white;
+}
+
+/* Container */
+#container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 400px;
+    color: white;
+    animation: popIn 0.5s ease forwards;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Button */
+#startBtn {
+    padding: 15px 30px;
+    font-size: 22px;
+    border: none;
+    border-radius: 12px;
+    background: #ff4081;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#startBtn:hover {
+    transform: scale(1.1);
+}
+
+/* Content */
+#content {
+    display: none;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+h1 {
+    font-size: 50px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {text-shadow: 0 0 10px white;}
+    to {text-shadow: 0 0 30px yellow;}
+}
+
+/* Balloons */
+.balloon {
+    position: absolute;
+    bottom: -150px;
+    width: 50px;
+    height: 70px;
+    border-radius: 50%;
+    animation: floatUp 10s linear infinite;
+}
+.balloon:after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 50px;
+    background: white;
+    top: 70px;
+    left: 50%;
+}
+
+@keyframes floatUp {
+    from {transform: translateY(0);}
+    to {transform: translateY(-120vh);}
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Audio -->
+<audio id="music" loop>
+  <source src="Birthday.mp3" type="audio/mpeg">
+</audio>
+
+<div id="container">
+    <button id="startBtn" onclick="start()">🎁 Tap Here</button>
+
+    <div id="content">
+        <h1>Happy Birthday SARANYA❤️</h1>
+        <p>
+There's something about you that's hard to explain but easy to notice. Maybe it's your vibe, or the way you carry yourself, or just the kind of person you are—but it leaves an impression. I hope this year brings you everything you've been quietly wishing for and more. Keep being the person you are, because that's what makes you stand out in the best way ❤️</p>
+    </div>
+</div>
+
+<script>
+
+function start() {
+    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("content").style.display = "block";
+
+    // 🎵 Play music
+    document.getElementById("music").play();
+
+    createBalloons();
+    createConfetti();
+}
+
+/* Balloons */
+function createBalloons() {
+    for (let i = 0; i < 15; i++) {
+        let b = document.createElement("div");
+        b.className = "balloon";
+        b.style.left = Math.random() * 100 + "vw";
+        b.style.background = getRandomColor();
+        b.style.animationDuration = (5 + Math.random()*5) + "s";
+        document.body.appendChild(b);
+    }
+}
+
+/* Confetti */
+function createConfetti() {
+    for (let i = 0; i < 100; i++) {
+        let c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.top = Math.random() * 100 + "vh";
+        c.style.background = getRandomColor();
+        document.body.appendChild(c);
+
+        setTimeout(() => c.remove(), 3000);
+    }
+}
+
+/* Colors */
+function getRandomColor() {
+    let colors = ["#ff0", "#0ff", "#f0f", "#fff", "#ffd700"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+</script>
+
+</body>
+</html>
